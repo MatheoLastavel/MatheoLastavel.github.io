@@ -21,10 +21,28 @@
     font-family: 'Montserrat', sans-serif;
     font-weight: 200;
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
     -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
   }
+
+  /* ─── BACKGROUND IMAGE ─── */
+  .bg-cover {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+    pointer-events: none;
+  }
+
+  .bg-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.35);
+  }
+
+  .bg-cover.visible { opacity: 1; }
 
   /* ─── NAV ─── */
   nav {
@@ -66,13 +84,15 @@
 
   /* ─── MAIN ─── */
   main {
-    flex: 1;
+    position: relative;
+    z-index: 10;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    padding: 80px 2rem 4rem;
     text-align: center;
-    padding: 56px 2rem 4rem;
   }
 
   /* ─── NOM ─── */
@@ -83,7 +103,7 @@
     font-size: clamp(2.8rem, 7vw, 5.5rem);
     letter-spacing: 0.08em;
     color: var(--white);
-    margin-bottom: 3rem;
+    margin-bottom: 3.5rem;
     opacity: 0;
     animation: fadeUp 1.2s ease forwards;
     animation-delay: 0.2s;
@@ -94,61 +114,51 @@
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 0.15rem;
+    align-items: center;
+    gap: 0;
   }
 
   .series-list li {
     opacity: 0;
     animation: fadeUp 0.8s ease forwards;
+    width: 100%;
+    text-align: center;
   }
 
-  .series-list li:nth-child(1) { animation-delay: 0.5s; }
-  .series-list li:nth-child(2) { animation-delay: 0.62s; }
-  .series-list li:nth-child(3) { animation-delay: 0.74s; }
-  .series-list li:nth-child(4) { animation-delay: 0.86s; }
-  .series-list li:nth-child(5) { animation-delay: 0.98s; }
-  .series-list li:nth-child(6) { animation-delay: 1.1s; }
-  .series-list li:nth-child(7) { animation-delay: 1.22s; }
+  .series-list li:nth-child(1) { animation-delay: 0.45s; }
+  .series-list li:nth-child(2) { animation-delay: 0.56s; }
+  .series-list li:nth-child(3) { animation-delay: 0.67s; }
+  .series-list li:nth-child(4) { animation-delay: 0.78s; }
+  .series-list li:nth-child(5) { animation-delay: 0.89s; }
+  .series-list li:nth-child(6) { animation-delay: 1.0s; }
+  .series-list li:nth-child(7) { animation-delay: 1.11s; }
 
   .series-list a {
     font-family: 'Montserrat', sans-serif;
     font-weight: 200;
-    font-size: clamp(0.65rem, 1.2vw, 0.72rem);
-    letter-spacing: 0.3em;
+    font-size: clamp(0.62rem, 1.1vw, 0.7rem);
+    letter-spacing: 0.35em;
     text-transform: uppercase;
     color: var(--muted);
     text-decoration: none;
     display: inline-block;
-    padding: 0.55rem 0;
+    padding: 0.65rem 1rem;
+    transition: color 0.3s, letter-spacing 0.3s;
     position: relative;
-    transition: color 0.3s;
-  }
-
-  .series-list a::after {
-    content: '';
-    position: absolute;
-    bottom: 0.45rem;
-    left: 0;
-    width: 0;
-    height: 0.5px;
-    background: var(--white);
-    transition: width 0.35s ease;
   }
 
   .series-list a:hover {
     color: var(--white);
-  }
-
-  .series-list a:hover::after {
-    width: 100%;
+    letter-spacing: 0.45em;
   }
 
   /* ─── FOOTER ─── */
   footer {
+    position: relative;
+    z-index: 10;
     padding: 1.5rem 2.5rem;
     display: flex;
     justify-content: space-between;
-    align-items: center;
   }
 
   footer a, footer span {
@@ -163,19 +173,22 @@
   footer a:hover { color: var(--white); }
 
   @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(14px); }
+    from { opacity: 0; transform: translateY(12px); }
     to   { opacity: 1; transform: translateY(0); }
   }
 
-  /* ─── MOBILE ─── */
   @media (max-width: 600px) {
     nav { padding: 0 1.25rem; }
-    .nav-right { gap: 1.2rem; }
-    footer { padding: 1.5rem 1.25rem; }
+    footer { padding: 1.5rem 1.25rem; flex-direction: column; gap: 0.4rem; }
   }
 </style>
 </head>
 <body>
+
+<!-- IMAGE DE FOND qui apparaît au hover -->
+<div class="bg-cover" id="bgCover">
+  <img src="" alt="" id="bgImg">
+</div>
 
 <nav>
   <a href="index.html" class="nav-logo">Mathéo Lastavel</a>
@@ -189,13 +202,31 @@
   <h1 class="name">Mathéo Lastavel</h1>
 
   <ul class="series-list">
-    <li><a href="india.html">India</a></li>
-    <li><a href="nepal.html">Nepal</a></li>
-    <li><a href="trek.html">Trek</a></li>
-    <li><a href="andros.html">Andros</a></li>
-    <li><a href="monks.html">Monks</a></li>
-    <li><a href="french-pyrenees.html">French Pyrénées</a></li>
-    <li><a href="asia-colour.html">Asia Colour</a></li>
+    <!--
+      data-cover = chemin vers ta photo de couverture de la série
+      Exemple : data-cover="images/india/cover.jpg"
+    -->
+    <li>
+      <a href="india.html" data-cover="images/india/cover.jpg">India</a>
+    </li>
+    <li>
+      <a href="nepal.html" data-cover="images/nepal/cover.jpg">Nepal</a>
+    </li>
+    <li>
+      <a href="trek.html" data-cover="images/trek/cover.jpg">Trek</a>
+    </li>
+    <li>
+      <a href="andros.html" data-cover="images/andros/cover.jpg">Andros</a>
+    </li>
+    <li>
+      <a href="monks.html" data-cover="images/monks/cover.jpg">Monks</a>
+    </li>
+    <li>
+      <a href="french-pyrenees.html" data-cover="images/french-pyrenees/cover.jpg">French Pyrénées</a>
+    </li>
+    <li>
+      <a href="asia-colour.html" data-cover="images/asia-colour/cover.jpg">Asia Colour</a>
+    </li>
   </ul>
 </main>
 
@@ -203,6 +234,22 @@
   <span>© 2026 Mathéo Lastavel</span>
   <a href="mailto:contact@matheo-lastavel.com">contact@matheo-lastavel.com</a>
 </footer>
+
+<script>
+  const bgCover = document.getElementById('bgCover');
+  const bgImg   = document.getElementById('bgImg');
+  const links   = document.querySelectorAll('.series-list a[data-cover]');
+
+  links.forEach(link => {
+    link.addEventListener('mouseenter', () => {
+      bgImg.src = link.dataset.cover;
+      bgCover.classList.add('visible');
+    });
+    link.addEventListener('mouseleave', () => {
+      bgCover.classList.remove('visible');
+    });
+  });
+</script>
 
 </body>
 </html>
