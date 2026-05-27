@@ -8,261 +8,47 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Montserrat:wght@200;300&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --black: #0a0a0a; --white: #f5f2ed; --muted: #4a4a4a; }
+  body { background: var(--black); color: var(--white); font-family: 'Montserrat', sans-serif; font-weight: 200; -webkit-font-smoothing: antialiased; overflow: hidden; height: 100vh; width: 100vw; }
 
-  :root {
-    --black: #0a0a0a;
-    --white: #f5f2ed;
-    --muted: #4a4a4a;
-  }
-
-  body {
-    background: var(--black);
-    color: var(--white);
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 200;
-    -webkit-font-smoothing: antialiased;
-    overflow: hidden;
-    height: 100vh;
-    width: 100vw;
-  }
-
-  /* ─── NAV ─── */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 2.5rem;
-    height: 56px;
-  }
-
-  .nav-logo {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 300;
-    font-size: 0.72rem;
-    letter-spacing: 0.28em;
-    text-transform: uppercase;
-    color: var(--white);
-    text-decoration: none;
-  }
-
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 2.5rem; height: 56px; }
+  .nav-logo { font-family: 'Montserrat', sans-serif; font-weight: 300; font-size: 0.72rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--white); text-decoration: none; }
   .nav-right { display: flex; gap: 2rem; align-items: center; }
-
-  .nav-right a {
-    font-size: 0.62rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--muted);
-    text-decoration: none;
-    transition: color 0.25s;
-  }
-
+  .nav-right a { font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.25s; }
   .nav-right a:hover { color: var(--white); }
 
-  /* ─── MENU WORKS ─── */
   .nav-works { position: relative; }
-
-  .nav-works-toggle {
-    font-size: 0.62rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--muted);
-    cursor: pointer;
-    background: none;
-    border: none;
-    font-family: inherit;
-    font-weight: 200;
-    padding: 0;
-    transition: color 0.25s;
-  }
-
+  .nav-works-toggle { font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); cursor: pointer; background: none; border: none; font-family: inherit; font-weight: 200; padding: 0; transition: color 0.25s; }
   .nav-works-toggle:hover { color: var(--white); }
-
-  .works-dropdown {
-    display: none;
-    position: absolute;
-    top: calc(100% + 12px);
-    right: 0;
-    background: var(--black);
-    border: 0.5px solid #222;
-    padding: 1rem 1.5rem;
-    min-width: 170px;
-    flex-direction: column;
-    gap: 0.7rem;
-  }
-
+  .works-dropdown { display: none; position: absolute; top: calc(100% + 12px); right: 0; background: var(--black); border: 0.5px solid #222; padding: 1rem 1.5rem; min-width: 170px; flex-direction: column; gap: 0.7rem; }
   .works-dropdown.open { display: flex; }
-
-  .works-dropdown a {
-    font-size: 0.6rem;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--muted);
-    text-decoration: none;
-    transition: color 0.2s;
-    white-space: nowrap;
-  }
-
+  .works-dropdown a { font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; white-space: nowrap; }
   .works-dropdown a:hover { color: var(--white); }
   .works-dropdown a.active { color: var(--white); }
 
-  /* ─── CAROUSEL PLEIN ÉCRAN ─── */
-  .carousel {
-    position: fixed;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+  .carousel { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; }
+  .slides-wrapper { position: relative; width: 100vw; height: 100vh; }
+  .slide { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.7s ease; pointer-events: none; }
+  .slide.active { opacity: 1; pointer-events: auto; }
+  .slide img { max-width: 100vw; max-height: 100vh; width: auto; height: auto; object-fit: contain; filter: brightness(0.92); user-select: none; -webkit-user-drag: none; }
 
-  /* Zone de slides */
-  .slides-wrapper {
-    position: relative;
-    width: 100vw;
-    height: 100vh;
-  }
+  .slide-info { position: fixed; bottom: 2.5rem; left: 2.5rem; z-index: 50; pointer-events: none; }
+  .slide-info h1 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-style: italic; font-size: clamp(2rem, 4vw, 3.5rem); letter-spacing: 0.08em; color: var(--white); line-height: 1; }
+  .slide-info .year { font-size: 0.58rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--muted); margin-top: 0.5rem; }
 
-  .slide {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: opacity 0.7s ease;
-    pointer-events: none;
-  }
-
-  .slide.active {
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  .slide img {
-    max-width: 100vw;
-    max-height: 100vh;
-    width: auto;
-    height: auto;
-    object-fit: contain;
-    filter: brightness(0.92);
-    user-select: none;
-    -webkit-user-drag: none;
-  }
-
-  /* ─── INFOS BAS GAUCHE ─── */
-  .slide-info {
-    position: fixed;
-    bottom: 2.5rem;
-    left: 2.5rem;
-    z-index: 50;
-    pointer-events: none;
-  }
-
-  .slide-info h1 {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 300;
-    font-style: italic;
-    font-size: clamp(2rem, 4vw, 3.5rem);
-    letter-spacing: 0.08em;
-    color: var(--white);
-    line-height: 1;
-  }
-
-  .slide-info .year {
-    font-size: 0.58rem;
-    letter-spacing: 0.28em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-top: 0.5rem;
-  }
-
-  /* ─── COMPTEUR + FLÈCHES ─── */
-  .controls {
-    position: fixed;
-    bottom: 2.5rem;
-    right: 2.5rem;
-    z-index: 50;
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-  }
-
-  .counter {
-    font-size: 0.58rem;
-    letter-spacing: 0.2em;
-    color: var(--muted);
-  }
-
-  .arrow {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0.4rem;
-    color: var(--muted);
-    transition: color 0.2s;
-    font-size: 1rem;
-    line-height: 1;
-  }
-
+  .controls { position: fixed; bottom: 2.5rem; right: 2.5rem; z-index: 50; display: flex; align-items: center; gap: 1.5rem; }
+  .counter { font-size: 0.58rem; letter-spacing: 0.2em; color: var(--muted); }
+  .arrow { background: none; border: none; cursor: pointer; padding: 0.4rem; color: var(--muted); transition: color 0.2s; font-size: 1rem; line-height: 1; }
   .arrow:hover { color: var(--white); }
 
-  /* ─── CLIC ZONES ─── */
-  .click-prev, .click-next {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    width: 40%;
-    z-index: 30;
-    cursor: none;
-  }
-
+  .click-prev, .click-next { position: fixed; top: 0; bottom: 0; width: 40%; z-index: 30; cursor: none; }
   .click-prev { left: 0; }
   .click-next { right: 0; }
 
-  /* ─── CURSEUR CUSTOM ─── */
-  .cursor {
-    position: fixed;
-    z-index: 200;
-    pointer-events: none;
-    font-size: 0.6rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--white);
-    background: rgba(10,10,10,0.7);
-    padding: 0.3rem 0.6rem;
-    border: 0.5px solid #333;
-    transform: translate(-50%, -50%);
-    opacity: 0;
-    transition: opacity 0.2s;
-    white-space: nowrap;
-  }
+  .cursor { position: fixed; z-index: 200; pointer-events: none; font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--white); background: rgba(10,10,10,0.7); padding: 0.3rem 0.6rem; border: 0.5px solid #333; transform: translate(-50%, -50%); opacity: 0; transition: opacity 0.2s; white-space: nowrap; }
 
-  /* ─── NAV SÉRIES (invisible, juste liens) ─── */
-  .series-nav {
-    position: fixed;
-    top: 50%;
-    left: 0; right: 0;
-    transform: translateY(-50%);
-    display: flex;
-    justify-content: space-between;
-    padding: 0 1.5rem;
-    z-index: 50;
-    pointer-events: none;
-  }
-
-  .series-nav a {
-    font-size: 0.58rem;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: transparent;
-    text-decoration: none;
-    pointer-events: auto;
-    transition: color 0.25s;
-    padding: 1rem 0.5rem;
-  }
-
+  .series-nav { position: fixed; top: 50%; left: 0; right: 0; transform: translateY(-50%); display: flex; justify-content: space-between; padding: 0 1.5rem; z-index: 50; pointer-events: none; }
+  .series-nav a { font-size: 0.58rem; letter-spacing: 0.22em; text-transform: uppercase; color: transparent; text-decoration: none; pointer-events: auto; transition: color 0.25s; padding: 1rem 0.5rem; }
   .series-nav a:hover { color: var(--muted); }
 
   @media (max-width: 600px) {
@@ -274,7 +60,6 @@
 </head>
 <body>
 
-<!-- CURSEUR CUSTOM -->
 <div class="cursor" id="cursor"></div>
 
 <nav>
@@ -297,72 +82,45 @@
   </div>
 </nav>
 
-<!-- CAROUSEL -->
 <div class="carousel">
   <div class="slides-wrapper" id="slidesWrapper">
-
-    <!--
-      ════════════════════════════════════════
-      AJOUTE TES PHOTOS ICI
-      Remplace chaque src="" par le chemin de ta photo.
-      Exemple : src="images/india/photo1.jpg"
-      Duplique autant de <div class="slide"> que tu as de photos.
-      ════════════════════════════════════════
-    -->
 
     <div class="slide active">
       <img src="images/india/photo1.jpg" alt="">
     </div>
-
     <div class="slide">
       <img src="images/india/photo2.jpg" alt="">
     </div>
-
     <div class="slide">
       <img src="images/india/photo3.jpg" alt="">
     </div>
-
     <div class="slide">
       <img src="images/india/photo4.jpg" alt="">
     </div>
-
     <div class="slide">
       <img src="images/india/photo5.jpg" alt="">
     </div>
-
     <div class="slide">
       <img src="images/india/photo6.jpg" alt="">
-    </div>
-
-    <div class="slide">
-      <img src="images/india/photo7.jpg" alt="">
-    </div>
-
-    <div class="slide">
-      <img src="images/india/photo8.jpg" alt="">
     </div>
 
   </div>
 </div>
 
-<!-- ZONES CLIC invisibles -->
 <div class="click-prev" id="clickPrev"></div>
 <div class="click-next" id="clickNext"></div>
 
-<!-- INFOS -->
 <div class="slide-info">
   <h1>India</h1>
   <div class="year">2026</div>
 </div>
 
-<!-- CONTRÔLES -->
 <div class="controls">
   <button class="arrow" id="btnPrev">←</button>
-  <span class="counter" id="counter">1 / 8</span>
+  <span class="counter" id="counter">1 / 6</span>
   <button class="arrow" id="btnNext">→</button>
 </div>
 
-<!-- NAV ENTRE SÉRIES -->
 <div class="series-nav">
   <a href="asia-colour.html">← Asia Colour</a>
   <a href="nepal.html">Nepal →</a>
@@ -386,21 +144,18 @@
   document.getElementById('clickNext').addEventListener('click', () => goTo(current + 1));
   document.getElementById('clickPrev').addEventListener('click', () => goTo(current - 1));
 
-  /* Clavier */
   document.addEventListener('keydown', e => {
     if (e.key === 'ArrowRight') goTo(current + 1);
     if (e.key === 'ArrowLeft')  goTo(current - 1);
   });
 
-  /* Swipe mobile */
   let startX = 0;
   document.addEventListener('touchstart', e => startX = e.touches[0].clientX);
-  document.addEventListener('touchend',   e => {
+  document.addEventListener('touchend', e => {
     const dx = e.changedTouches[0].clientX - startX;
     if (Math.abs(dx) > 50) dx < 0 ? goTo(current + 1) : goTo(current - 1);
   });
 
-  /* Curseur custom */
   const cursor   = document.getElementById('cursor');
   const zonePrev = document.getElementById('clickPrev');
   const zoneNext = document.getElementById('clickNext');
@@ -415,14 +170,10 @@
   zonePrev.addEventListener('mouseleave', () => cursor.style.opacity = 0);
   zoneNext.addEventListener('mouseleave', () => cursor.style.opacity = 0);
 
-  /* Menu works */
   const toggle   = document.getElementById('worksToggle');
   const dropdown = document.getElementById('worksDropdown');
   toggle.addEventListener('click', e => { e.stopPropagation(); dropdown.classList.toggle('open'); });
   document.addEventListener('click', () => dropdown.classList.remove('open'));
-
-  /* Init compteur */
-  counter.textContent = '1 / ' + total;
 </script>
 
 </body>
