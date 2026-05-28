@@ -11,6 +11,7 @@
   :root { --black: #0a0a0a; --white: #f5f2ed; --muted: #4a4a4a; }
   body { background: var(--black); color: var(--white); font-family: 'Montserrat', sans-serif; font-weight: 200; -webkit-font-smoothing: antialiased; overflow: hidden; height: 100vh; width: 100vw; }
 
+  /* ─── NAV ─── */
   nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 2.5rem; height: 56px; }
   .nav-logo { font-family: 'Montserrat', sans-serif; font-weight: 300; font-size: 0.72rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--white); text-decoration: none; }
   .nav-right { display: flex; gap: 2rem; align-items: center; }
@@ -27,90 +28,47 @@
   .works-dropdown a.active { color: var(--white); }
 
   /* ─── LAYOUT ─── */
-  .page {
-    position: fixed;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-top: 56px;
-  }
+  .page { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; padding-top: 56px; }
 
-  /* ─── CAROUSEL ─── */
+  /* ─── CAROUSEL : 60% ─── */
   .carousel-container {
     position: relative;
-    width: 72vw;
-    max-width: 900px;
-    height: 72vh;
+    width: 60vw;
+    max-width: 800px;
+    height: 60vh;
   }
 
-  .slide {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: opacity 0.7s ease;
-    pointer-events: none;
-  }
-
+  .slide { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.7s ease; pointer-events: none; }
   .slide.active { opacity: 1; pointer-events: auto; }
+  .slide img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; filter: brightness(0.92); user-select: none; -webkit-user-drag: none; display: block; }
 
-  .slide img {
-    max-width: 100%;
-    max-height: 100%;
-    width: auto;
-    height: auto;
-    object-fit: contain;
-    filter: brightness(0.92);
-    user-select: none;
-    -webkit-user-drag: none;
-    display: block;
-  }
-
-  /* ─── ZONES CLIC ─── */
-  .click-prev, .click-next {
-    position: absolute;
-    top: 0; bottom: 0;
-    width: 45%;
-    z-index: 10;
-    cursor: none;
-  }
+  /* Zones clic pour changer de photo (invisibles) */
+  .click-prev, .click-next { position: absolute; top: 0; bottom: 0; width: 45%; z-index: 10; cursor: none; }
   .click-prev { left: 0; }
   .click-next { right: 0; }
 
   /* ─── INFOS BAS GAUCHE ─── */
-  .slide-info {
-    position: fixed;
-    bottom: 2.5rem;
-    left: 2.5rem;
-    z-index: 50;
-    pointer-events: none;
-  }
+  .slide-info { position: fixed; bottom: 2.5rem; left: 2.5rem; z-index: 50; pointer-events: none; }
   .slide-info h1 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-style: italic; font-size: clamp(1.6rem, 3vw, 2.5rem); letter-spacing: 0.08em; color: var(--white); line-height: 1; }
   .slide-info .year { font-size: 0.56rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--muted); margin-top: 0.4rem; }
 
-  /* ─── CONTRÔLES BAS DROITE ─── */
-  .controls { position: fixed; bottom: 2.5rem; right: 2.5rem; z-index: 50; display: flex; align-items: center; gap: 1.5rem; }
-  .counter { font-size: 0.56rem; letter-spacing: 0.2em; color: var(--muted); }
-  .arrow { background: none; border: none; cursor: pointer; padding: 0.4rem; color: var(--muted); transition: color 0.2s; font-size: 1rem; line-height: 1; }
-  .arrow:hover { color: var(--white); }
+  /* ─── COMPTEUR BAS CENTRE ─── */
+  .counter { position: fixed; bottom: 2.6rem; left: 50%; transform: translateX(-50%); z-index: 50; font-size: 0.56rem; letter-spacing: 0.22em; color: var(--muted); pointer-events: none; }
+
+  /* ─── SÉRIE SUIVANTE BAS DROITE ─── */
+  .series-next { position: fixed; bottom: 2.5rem; right: 2.5rem; z-index: 50; }
+  .series-next a { font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.25s; }
+  .series-next a:hover { color: var(--white); }
 
   /* ─── CURSEUR CUSTOM ─── */
   .cursor { position: fixed; z-index: 200; pointer-events: none; font-size: 0.6rem; letter-spacing: 0.15em; color: var(--white); background: rgba(10,10,10,0.75); padding: 0.3rem 0.6rem; border: 0.5px solid #333; transform: translate(-50%, -50%); opacity: 0; transition: opacity 0.2s; white-space: nowrap; }
 
-  /* ─── NAV SÉRIES ─── */
-  .series-nav { position: fixed; bottom: 2.5rem; left: 50%; transform: translateX(-50%); z-index: 50; display: flex; gap: 3rem; }
-  .series-nav a { font-size: 0.56rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.25s; }
-  .series-nav a:hover { color: var(--white); }
-
   @media (max-width: 768px) {
-    .carousel-container { width: 90vw; height: 60vh; }
+    .carousel-container { width: 88vw; height: 55vh; }
     nav { padding: 0 1.25rem; }
     .slide-info { bottom: 4.5rem; left: 1.25rem; }
-    .controls { bottom: 1.5rem; right: 1.25rem; }
-    .series-nav { bottom: 1.5rem; }
+    .series-next { bottom: 1.5rem; right: 1.25rem; }
+    .counter { bottom: 1.6rem; }
   }
 </style>
 </head>
@@ -141,43 +99,29 @@
 <div class="page">
   <div class="carousel-container" id="carouselContainer">
 
-    <div class="slide active">
-      <img src="images/india/photo1.jpg" alt="">
-    </div>
-    <div class="slide">
-      <img src="images/india/photo2.jpg" alt="">
-    </div>
-    <div class="slide">
-      <img src="images/india/photo3.jpg" alt="">
-    </div>
-    <div class="slide">
-      <img src="images/india/photo4.jpg" alt="">
-    </div>
-    <div class="slide">
-      <img src="images/india/photo5.jpg" alt="">
-    </div>
-    <div class="slide">
-      <img src="images/india/photo6.jpg" alt="">
-    </div>
+    <div class="slide active"><img src="images/india/photo1.jpg" alt=""></div>
+    <div class="slide"><img src="images/india/photo2.jpg" alt=""></div>
+    <div class="slide"><img src="images/india/photo3.jpg" alt=""></div>
+    <div class="slide"><img src="images/india/photo4.jpg" alt=""></div>
+    <div class="slide"><img src="images/india/photo5.jpg" alt=""></div>
+    <div class="slide"><img src="images/india/photo6.jpg" alt=""></div>
 
     <div class="click-prev" id="clickPrev"></div>
     <div class="click-next" id="clickNext"></div>
   </div>
 </div>
 
+<!-- Titre en bas à gauche -->
 <div class="slide-info">
   <h1>India</h1>
   <div class="year">2026</div>
 </div>
 
-<div class="controls">
-  <button class="arrow" id="btnPrev">←</button>
-  <span class="counter" id="counter">1 / 6</span>
-  <button class="arrow" id="btnNext">→</button>
-</div>
+<!-- Compteur centré en bas -->
+<div class="counter" id="counter">1 / 6</div>
 
-<div class="series-nav">
-  <a href="asia-colour.html">← Asia Colour</a>
+<!-- Série suivante en bas à droite -->
+<div class="series-next">
   <a href="nepal.html">Nepal →</a>
 </div>
 
@@ -194,8 +138,6 @@
     counter.textContent = (current + 1) + ' / ' + total;
   }
 
-  document.getElementById('btnNext').addEventListener('click', () => goTo(current + 1));
-  document.getElementById('btnPrev').addEventListener('click', () => goTo(current - 1));
   document.getElementById('clickNext').addEventListener('click', () => goTo(current + 1));
   document.getElementById('clickPrev').addEventListener('click', () => goTo(current - 1));
 
