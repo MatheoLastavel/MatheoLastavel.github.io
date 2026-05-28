@@ -11,13 +11,12 @@
   :root { --black: #0a0a0a; --white: #f5f2ed; --muted: #4a4a4a; }
   body { background: var(--black); color: var(--white); font-family: 'Montserrat', sans-serif; font-weight: 200; -webkit-font-smoothing: antialiased; overflow: hidden; height: 100vh; width: 100vw; }
 
-  /* ─── NAV ─── */
+  /* NAV */
   nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 2.5rem; height: 56px; }
   .nav-logo { font-family: 'Montserrat', sans-serif; font-weight: 300; font-size: 0.72rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--white); text-decoration: none; }
   .nav-right { display: flex; gap: 2rem; align-items: center; }
   .nav-right a { font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.25s; }
   .nav-right a:hover { color: var(--white); }
-
   .nav-works { position: relative; }
   .nav-works-toggle { font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); cursor: pointer; background: none; border: none; font-family: inherit; font-weight: 200; padding: 0; transition: color 0.25s; }
   .nav-works-toggle:hover { color: var(--white); }
@@ -27,54 +26,70 @@
   .works-dropdown a:hover { color: var(--white); }
   .works-dropdown a.active { color: var(--white); }
 
-  /* ─── LAYOUT ─── */
-  .page { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; padding-top: 56px; }
+  /* LAYOUT */
+  .page { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding-top: 56px; padding-bottom: 80px; gap: 1.2rem; }
 
-  /* ─── CAROUSEL : 60% ─── */
-  .carousel-container {
-    position: relative;
-    width: 60vw;
-    max-width: 800px;
-    height: 60vh;
+  /* CAROUSEL WRAPPER : contient le carousel + les flèches côté */
+  .carousel-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
   }
 
+  /* FLÈCHES LATÉRALES */
+  .arrow-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--muted);
+    font-size: 1.1rem;
+    padding: 0.5rem;
+    transition: color 0.2s, transform 0.2s;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  .arrow-btn:hover { color: var(--white); transform: scale(1.2); }
+
+  /* CAROUSEL */
+  .carousel-container { position: relative; width: 60vw; max-width: 800px; height: 60vh; flex-shrink: 0; }
   .slide { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.7s ease; pointer-events: none; }
   .slide.active { opacity: 1; pointer-events: auto; }
   .slide img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; filter: brightness(0.92); user-select: none; -webkit-user-drag: none; display: block; }
 
-  /* Zones clic pour changer de photo (invisibles) */
-  .click-prev, .click-next { position: absolute; top: 0; bottom: 0; width: 45%; z-index: 10; cursor: none; }
-  .click-prev { left: 0; }
-  .click-next { right: 0; }
+  /* THUMBNAILS */
+  .thumbnails { display: flex; gap: 6px; align-items: center; justify-content: center; width: 60vw; max-width: 800px; overflow-x: auto; padding: 4px 0 6px; scrollbar-width: none; }
+  .thumbnails::-webkit-scrollbar { display: none; }
+  .thumb { width: 44px; height: 30px; flex-shrink: 0; cursor: pointer; opacity: 0.35; transition: opacity 0.25s; overflow: hidden; border: 0.5px solid transparent; }
+  .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .thumb:hover { opacity: 0.65; }
+  .thumb.active { opacity: 1; border-color: var(--white); }
 
-  /* ─── INFOS BAS GAUCHE ─── */
+  /* INFOS BAS GAUCHE */
   .slide-info { position: fixed; bottom: 2.5rem; left: 2.5rem; z-index: 50; pointer-events: none; }
   .slide-info h1 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-style: italic; font-size: clamp(1.6rem, 3vw, 2.5rem); letter-spacing: 0.08em; color: var(--white); line-height: 1; }
   .slide-info .year { font-size: 0.56rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--muted); margin-top: 0.4rem; }
 
-  /* ─── COMPTEUR BAS CENTRE ─── */
+  /* COMPTEUR */
   .counter { position: fixed; bottom: 2.6rem; left: 50%; transform: translateX(-50%); z-index: 50; font-size: 0.56rem; letter-spacing: 0.22em; color: var(--muted); pointer-events: none; }
 
-  /* ─── SÉRIE SUIVANTE BAS DROITE ─── */
-  .series-next { position: fixed; bottom: 2.5rem; right: 2.5rem; z-index: 50; }
-  .series-next a { font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.25s; }
-  .series-next a:hover { color: var(--white); }
-
-  /* ─── CURSEUR CUSTOM ─── */
-  .cursor { position: fixed; z-index: 200; pointer-events: none; font-size: 0.6rem; letter-spacing: 0.15em; color: var(--white); background: rgba(10,10,10,0.75); padding: 0.3rem 0.6rem; border: 0.5px solid #333; transform: translate(-50%, -50%); opacity: 0; transition: opacity 0.2s; white-space: nowrap; }
+  /* NAVIGATION SÉRIES */
+  .series-nav { position: fixed; bottom: 2.5rem; right: 2.5rem; z-index: 50; display: flex; gap: 2rem; }
+  .series-nav a { font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.25s; }
+  .series-nav a:hover { color: var(--white); }
 
   @media (max-width: 768px) {
-    .carousel-container { width: 88vw; height: 55vh; }
+    .carousel-container { width: 80vw; height: 50vh; }
+    .thumbnails { width: 80vw; }
+    .thumb { width: 36px; height: 24px; }
+    .arrow-btn { font-size: 0.9rem; padding: 0.3rem; }
     nav { padding: 0 1.25rem; }
     .slide-info { bottom: 4.5rem; left: 1.25rem; }
-    .series-next { bottom: 1.5rem; right: 1.25rem; }
+    .series-nav { bottom: 1.5rem; right: 1.25rem; }
     .counter { bottom: 1.6rem; }
   }
 </style>
 </head>
 <body>
-
-<div class="cursor" id="cursor"></div>
 
 <nav>
   <a href="index.html" class="nav-logo">Mathéo Lastavel</a>
@@ -91,55 +106,65 @@
         <a href="asia-colour.html">Asia Colour</a>
       </div>
     </div>
-    <a href="mailto:contact@matheo-lastavel.com">Contact</a>
-    <a href="https://instagram.com/" target="_blank">Instagram</a>
+    <a href="mailto:matheo.lastavel@gmail.com">Contact</a>
+    <a href="https://www.instagram.com/matheo.lastavel/" target="_blank">Instagram</a>
   </div>
 </nav>
 
 <div class="page">
-  <div class="carousel-container" id="carouselContainer">
-
-    <div class="slide active"><img src="images/india/photo1.jpg" alt=""></div>
-    <div class="slide"><img src="images/india/photo2.jpg" alt=""></div>
-    <div class="slide"><img src="images/india/photo3.jpg" alt=""></div>
-    <div class="slide"><img src="images/india/photo4.jpg" alt=""></div>
-    <div class="slide"><img src="images/india/photo5.jpg" alt=""></div>
-    <div class="slide"><img src="images/india/photo6.jpg" alt=""></div>
-
-    <div class="click-prev" id="clickPrev"></div>
-    <div class="click-next" id="clickNext"></div>
+  <div class="carousel-wrapper">
+    <button class="arrow-btn" id="btnPrev">&#8592;</button>
+    <div class="carousel-container">
+      <div class="slide  active"><img src="images/india/photo1.jpg" alt=""></div>
+      <div class="slide"><img src="images/india/photo2.jpg" alt=""></div>
+      <div class="slide"><img src="images/india/photo3.jpg" alt=""></div>
+      <div class="slide"><img src="images/india/photo4.jpg" alt=""></div>
+      <div class="slide"><img src="images/india/photo5.jpg" alt=""></div>
+      <div class="slide"><img src="images/india/photo6.jpg" alt=""></div>
+    </div>
+    <button class="arrow-btn" id="btnNext">&#8594;</button>
+  </div>
+  <div class="thumbnails" id="thumbnails">
+    <div class="thumb  active"><img src="images/india/photo1.jpg" alt=""></div>
+    <div class="thumb"><img src="images/india/photo2.jpg" alt=""></div>
+    <div class="thumb"><img src="images/india/photo3.jpg" alt=""></div>
+    <div class="thumb"><img src="images/india/photo4.jpg" alt=""></div>
+    <div class="thumb"><img src="images/india/photo5.jpg" alt=""></div>
+    <div class="thumb"><img src="images/india/photo6.jpg" alt=""></div>
   </div>
 </div>
 
-<!-- Titre en bas à gauche -->
 <div class="slide-info">
   <h1>India</h1>
   <div class="year">2026</div>
 </div>
 
-<!-- Compteur centré en bas -->
 <div class="counter" id="counter">1 / 6</div>
 
-<!-- Série suivante en bas à droite -->
-<div class="series-next">
+<div class="series-nav">
   <a href="nepal.html">Nepal →</a>
 </div>
 
 <script>
   const slides  = document.querySelectorAll('.slide');
+  const thumbs  = document.querySelectorAll('.thumb');
   const counter = document.getElementById('counter');
   const total   = slides.length;
   let current   = 0;
 
   function goTo(n) {
     slides[current].classList.remove('active');
+    thumbs[current].classList.remove('active');
     current = (n + total) % total;
     slides[current].classList.add('active');
+    thumbs[current].classList.add('active');
     counter.textContent = (current + 1) + ' / ' + total;
+    thumbs[current].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
   }
 
-  document.getElementById('clickNext').addEventListener('click', () => goTo(current + 1));
-  document.getElementById('clickPrev').addEventListener('click', () => goTo(current - 1));
+  document.getElementById('btnNext').addEventListener('click', () => goTo(current + 1));
+  document.getElementById('btnPrev').addEventListener('click', () => goTo(current - 1));
+  thumbs.forEach((thumb, i) => thumb.addEventListener('click', () => goTo(i)));
 
   document.addEventListener('keydown', e => {
     if (e.key === 'ArrowRight') goTo(current + 1);
@@ -153,25 +178,197 @@
     if (Math.abs(dx) > 50) dx < 0 ? goTo(current + 1) : goTo(current - 1);
   });
 
-  const cursor   = document.getElementById('cursor');
-  const zonePrev = document.getElementById('clickPrev');
-  const zoneNext = document.getElementById('clickNext');
+  const toggle   = document.getElementById('worksToggle');
+  const dropdown = document.getElementById('worksDropdown');
+  toggle.addEventListener('click', e => { e.stopPropagation(); dropdown.classList.toggle('open'); });
+  document.addEventListener('click', () => dropdown.classList.remove('open'));
+</script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mathéo Lastavel — India</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Montserrat:wght@200;300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --black: #0a0a0a; --white: #f5f2ed; --muted: #4a4a4a; }
+  body { background: var(--black); color: var(--white); font-family: 'Montserrat', sans-serif; font-weight: 200; -webkit-font-smoothing: antialiased; overflow: hidden; height: 100vh; width: 100vw; }
 
-  document.addEventListener('mousemove', e => {
-    cursor.style.left = e.clientX + 'px';
-    cursor.style.top  = e.clientY + 'px';
+  /* NAV */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 2.5rem; height: 56px; }
+  .nav-logo { font-family: 'Montserrat', sans-serif; font-weight: 300; font-size: 0.72rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--white); text-decoration: none; }
+  .nav-right { display: flex; gap: 2rem; align-items: center; }
+  .nav-right a { font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.25s; }
+  .nav-right a:hover { color: var(--white); }
+  .nav-works { position: relative; }
+  .nav-works-toggle { font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); cursor: pointer; background: none; border: none; font-family: inherit; font-weight: 200; padding: 0; transition: color 0.25s; }
+  .nav-works-toggle:hover { color: var(--white); }
+  .works-dropdown { display: none; position: absolute; top: calc(100% + 12px); right: 0; background: var(--black); border: 0.5px solid #222; padding: 1rem 1.5rem; min-width: 170px; flex-direction: column; gap: 0.7rem; }
+  .works-dropdown.open { display: flex; }
+  .works-dropdown a { font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; white-space: nowrap; }
+  .works-dropdown a:hover { color: var(--white); }
+  .works-dropdown a.active { color: var(--white); }
+
+  /* LAYOUT */
+  .page { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding-top: 56px; padding-bottom: 80px; gap: 1.2rem; }
+
+  /* CAROUSEL WRAPPER : contient le carousel + les flèches côté */
+  .carousel-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+  }
+
+  /* FLÈCHES LATÉRALES */
+  .arrow-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--muted);
+    font-size: 1.1rem;
+    padding: 0.5rem;
+    transition: color 0.2s, transform 0.2s;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  .arrow-btn:hover { color: var(--white); transform: scale(1.2); }
+
+  /* CAROUSEL */
+  .carousel-container { position: relative; width: 60vw; max-width: 800px; height: 60vh; flex-shrink: 0; }
+  .slide { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.7s ease; pointer-events: none; }
+  .slide.active { opacity: 1; pointer-events: auto; }
+  .slide img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; filter: brightness(0.92); user-select: none; -webkit-user-drag: none; display: block; }
+
+  /* THUMBNAILS */
+  .thumbnails { display: flex; gap: 6px; align-items: center; justify-content: center; width: 60vw; max-width: 800px; overflow-x: auto; padding: 4px 0 6px; scrollbar-width: none; }
+  .thumbnails::-webkit-scrollbar { display: none; }
+  .thumb { width: 44px; height: 30px; flex-shrink: 0; cursor: pointer; opacity: 0.35; transition: opacity 0.25s; overflow: hidden; border: 0.5px solid transparent; }
+  .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .thumb:hover { opacity: 0.65; }
+  .thumb.active { opacity: 1; border-color: var(--white); }
+
+  /* INFOS BAS GAUCHE */
+  .slide-info { position: fixed; bottom: 2.5rem; left: 2.5rem; z-index: 50; pointer-events: none; }
+  .slide-info h1 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-style: italic; font-size: clamp(1.6rem, 3vw, 2.5rem); letter-spacing: 0.08em; color: var(--white); line-height: 1; }
+  .slide-info .year { font-size: 0.56rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--muted); margin-top: 0.4rem; }
+
+  /* COMPTEUR */
+  .counter { position: fixed; bottom: 2.6rem; left: 50%; transform: translateX(-50%); z-index: 50; font-size: 0.56rem; letter-spacing: 0.22em; color: var(--muted); pointer-events: none; }
+
+  /* NAVIGATION SÉRIES */
+  .series-nav { position: fixed; bottom: 2.5rem; right: 2.5rem; z-index: 50; display: flex; gap: 2rem; }
+  .series-nav a { font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.25s; }
+  .series-nav a:hover { color: var(--white); }
+
+  @media (max-width: 768px) {
+    .carousel-container { width: 80vw; height: 50vh; }
+    .thumbnails { width: 80vw; }
+    .thumb { width: 36px; height: 24px; }
+    .arrow-btn { font-size: 0.9rem; padding: 0.3rem; }
+    nav { padding: 0 1.25rem; }
+    .slide-info { bottom: 4.5rem; left: 1.25rem; }
+    .series-nav { bottom: 1.5rem; right: 1.25rem; }
+    .counter { bottom: 1.6rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Mathéo Lastavel</a>
+  <div class="nav-right">
+    <div class="nav-works">
+      <button class="nav-works-toggle" id="worksToggle">Works</button>
+      <div class="works-dropdown" id="worksDropdown">
+        <a href="india.html" class="active">India</a>
+        <a href="nepal.html">Nepal</a>
+        <a href="trek.html">Trek</a>
+        <a href="andros.html">Andros</a>
+        <a href="monks.html">Monks</a>
+        <a href="french-pyrenees.html">French Pyrénées</a>
+        <a href="asia-colour.html">Asia Colour</a>
+      </div>
+    </div>
+    <a href="mailto:matheo.lastavel@gmail.com">Contact</a>
+    <a href="https://www.instagram.com/matheo.lastavel/" target="_blank">Instagram</a>
+  </div>
+</nav>
+
+<div class="page">
+  <div class="carousel-wrapper">
+    <button class="arrow-btn" id="btnPrev">&#8592;</button>
+    <div class="carousel-container">
+      <div class="slide  active"><img src="images/india/photo1.jpg" alt=""></div>
+      <div class="slide"><img src="images/india/photo2.jpg" alt=""></div>
+      <div class="slide"><img src="images/india/photo3.jpg" alt=""></div>
+      <div class="slide"><img src="images/india/photo4.jpg" alt=""></div>
+      <div class="slide"><img src="images/india/photo5.jpg" alt=""></div>
+      <div class="slide"><img src="images/india/photo6.jpg" alt=""></div>
+    </div>
+    <button class="arrow-btn" id="btnNext">&#8594;</button>
+  </div>
+  <div class="thumbnails" id="thumbnails">
+    <div class="thumb  active"><img src="images/india/photo1.jpg" alt=""></div>
+    <div class="thumb"><img src="images/india/photo2.jpg" alt=""></div>
+    <div class="thumb"><img src="images/india/photo3.jpg" alt=""></div>
+    <div class="thumb"><img src="images/india/photo4.jpg" alt=""></div>
+    <div class="thumb"><img src="images/india/photo5.jpg" alt=""></div>
+    <div class="thumb"><img src="images/india/photo6.jpg" alt=""></div>
+  </div>
+</div>
+
+<div class="slide-info">
+  <h1>India</h1>
+  <div class="year">2026</div>
+</div>
+
+<div class="counter" id="counter">1 / 6</div>
+
+<div class="series-nav">
+  <a href="nepal.html">Nepal →</a>
+</div>
+
+<script>
+  const slides  = document.querySelectorAll('.slide');
+  const thumbs  = document.querySelectorAll('.thumb');
+  const counter = document.getElementById('counter');
+  const total   = slides.length;
+  let current   = 0;
+
+  function goTo(n) {
+    slides[current].classList.remove('active');
+    thumbs[current].classList.remove('active');
+    current = (n + total) % total;
+    slides[current].classList.add('active');
+    thumbs[current].classList.add('active');
+    counter.textContent = (current + 1) + ' / ' + total;
+    thumbs[current].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+  }
+
+  document.getElementById('btnNext').addEventListener('click', () => goTo(current + 1));
+  document.getElementById('btnPrev').addEventListener('click', () => goTo(current - 1));
+  thumbs.forEach((thumb, i) => thumb.addEventListener('click', () => goTo(i)));
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight') goTo(current + 1);
+    if (e.key === 'ArrowLeft')  goTo(current - 1);
   });
 
-  zonePrev.addEventListener('mouseenter', () => { cursor.textContent = '←'; cursor.style.opacity = 1; });
-  zoneNext.addEventListener('mouseenter', () => { cursor.textContent = '→'; cursor.style.opacity = 1; });
-  zonePrev.addEventListener('mouseleave', () => cursor.style.opacity = 0);
-  zoneNext.addEventListener('mouseleave', () => cursor.style.opacity = 0);
+  let startX = 0;
+  document.addEventListener('touchstart', e => startX = e.touches[0].clientX);
+  document.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - startX;
+    if (Math.abs(dx) > 50) dx < 0 ? goTo(current + 1) : goTo(current - 1);
+  });
 
   const toggle   = document.getElementById('worksToggle');
   const dropdown = document.getElementById('worksDropdown');
   toggle.addEventListener('click', e => { e.stopPropagation(); dropdown.classList.toggle('open'); });
   document.addEventListener('click', () => dropdown.classList.remove('open'));
 </script>
-
 </body>
 </html>
