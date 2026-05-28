@@ -24,18 +24,18 @@
   main { position: relative; z-index: 10; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 80px 2rem 4rem; text-align: center; }
 
   .name { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-style: italic; font-size: clamp(2.8rem, 7vw, 5.5rem); letter-spacing: 0.08em; color: var(--white); margin-bottom: 0.8rem; opacity: 0; animation: fadeUp 1.2s ease forwards; animation-delay: 0.2s; }
-
   .tagline { font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--muted); margin-bottom: 3.5rem; opacity: 0; animation: fadeUp 1s ease forwards; animation-delay: 0.5s; }
 
   .series-list { list-style: none; display: flex; flex-direction: column; align-items: center; gap: 0; }
   .series-list li { opacity: 0; animation: fadeUp 0.8s ease forwards; width: 100%; text-align: center; }
   .series-list li:nth-child(1) { animation-delay: 0.6s; }
-  .series-list li:nth-child(2) { animation-delay: 0.7s; }
-  .series-list li:nth-child(3) { animation-delay: 0.8s; }
-  .series-list li:nth-child(4) { animation-delay: 0.9s; }
-  .series-list li:nth-child(5) { animation-delay: 1.0s; }
-  .series-list li:nth-child(6) { animation-delay: 1.1s; }
-  .series-list li:nth-child(7) { animation-delay: 1.2s; }
+  .series-list li:nth-child(2) { animation-delay: 0.68s; }
+  .series-list li:nth-child(3) { animation-delay: 0.76s; }
+  .series-list li:nth-child(4) { animation-delay: 0.84s; }
+  .series-list li:nth-child(5) { animation-delay: 0.92s; }
+  .series-list li:nth-child(6) { animation-delay: 1.0s; }
+  .series-list li:nth-child(7) { animation-delay: 1.08s; }
+  .series-list li:nth-child(8) { animation-delay: 1.16s; }
 
   .series-list a { font-family: 'Montserrat', sans-serif; font-weight: 200; font-size: clamp(0.62rem, 1.1vw, 0.7rem); letter-spacing: 0.35em; text-transform: uppercase; color: var(--muted); text-decoration: none; display: inline-block; padding: 0.65rem 1rem; transition: color 0.3s, letter-spacing 0.3s; }
   .series-list a:hover { color: var(--white); letter-spacing: 0.45em; }
@@ -45,11 +45,7 @@
   footer a:hover { color: var(--white); }
 
   @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
-
-  @media (max-width: 600px) {
-    nav { padding: 0 1.25rem; }
-    footer { padding: 1.5rem 1.25rem; flex-direction: column; gap: 0.4rem; }
-  }
+  @media (max-width: 600px) { nav { padding: 0 1.25rem; } footer { padding: 1.5rem 1.25rem; flex-direction: column; gap: 0.4rem; } }
 </style>
 </head>
 <body>
@@ -66,16 +62,17 @@
 
 <main>
   <h1 class="name">Mathéo Lastavel</h1>
-  <p class="tagline">Photographe &middot; 22 ans &middot; France</p>
+  <p class="tagline">Photographe &middot; 23 ans &middot; France</p>
 
   <ul class="series-list">
-    <li><a href="india.html" data-cover="images/india/cover.jpg">India</a></li>
-    <li><a href="nepal.html" data-cover="images/nepal/cover.jpg">Nepal</a></li>
-    <li><a href="trek.html" data-cover="images/trek/cover.jpg">Trek</a></li>
-    <li><a href="andros.html" data-cover="images/andros/cover.jpg">Andros</a></li>
-    <li><a href="monks.html" data-cover="images/monks/cover.jpg">Monks</a></li>
+    <li><a href="india.html"          data-cover="images/india/cover.jpg">India</a></li>
+    <li><a href="nepal.html"          data-cover="images/nepal/cover.jpg">Nepal</a></li>
+    <li><a href="trek.html"           data-cover="images/trek/cover.jpg">Trek</a></li>
+    <li><a href="monks.html"          data-cover="images/monks/cover.jpg">Buddhist Monks</a></li>
+    <li><a href="bangkok-bw.html"     data-cover="images/bangkok-bw/cover.jpg">Bangkok B&amp;W</a></li>
+    <li><a href="asia-colour.html"    data-cover="images/asia-colour/cover.jpg">Asia Colour</a></li>
     <li><a href="french-pyrenees.html" data-cover="images/french-pyrenees/cover.jpg">French Pyrénées</a></li>
-    <li><a href="asia-colour.html" data-cover="images/asia-colour/cover.jpg">Asia Colour</a></li>
+    <li><a href="andros.html"         data-cover="images/andros/cover.jpg">Andros</a></li>
   </ul>
 </main>
 
